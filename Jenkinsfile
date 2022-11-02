@@ -36,7 +36,7 @@ pipeline {
           stage ('Make docker image and tag it') {
             steps {
               git 'https://github.com/dmitry-kzn/Lesson11-Dockerfile_to_package_war.git'
-              sh 'cp Dockerfile ./target/ && cd target/ && ls && docker build -t war_with_apache .'
+              sh 'cp Dockerfile ./target/ && cd target/ && ls && pwd && docker build -t war_with_apache .'
               sh 'docker image tag war_with_apache dmitrykzn/war_with_apache:v1'
             }
           }
