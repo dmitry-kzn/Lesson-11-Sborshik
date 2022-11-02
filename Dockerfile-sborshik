@@ -1,0 +1,30 @@
+FROM ubuntu:20.04
+
+# Install packages
+RUN apt update
+
+# Install ssh
+RUN apt-get -y install openssh-client
+
+## Confugure ssh client
+#COPY id_rsa /root/.ssh/id_rsa
+#RUN chmod 600 /root/.ssh/id_rsa
+
+###prevent user interaction while Configuring tzdata
+RUN DEBIAN_FRONTEND=noninteractive TZ=Europe/Paris apt-get -y install tzdata
+RUN apt install -y default-jdk wget
+
+#Install Maven
+RUN wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -P /tmp && \
+    tar xf /tmp/apache-maven-*.tar.gz -C /opt
+#  ln -s /opt/apache-maven-3.6.3 /opt/maven
+COPY maven.sh /etc/profile.d/
+CMD chmod +x /etc/profile.d/maven.sh && \
+    source /etc/profile.d/maven.sh
+
+# Install docker
+RUN apt install apt-transport-https ca-certificates curl software-properties-common -y
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+RUN apt update
+RUN apt install docker-ce -y
