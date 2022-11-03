@@ -20,7 +20,7 @@ pipeline {
               args '-u root:sudo -v /var/run/docker.sock:/var/run/docker.sock'
             }
           }   
-        //stages inside Docker container *sborshik1*
+////////////////////////stages inside Docker container *sborshik1* ///////////////////////////
         stages {
           stage ('Clone app from GitHub') {  
             steps {
@@ -51,7 +51,7 @@ pipeline {
             }
           }
         }
-        ///////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////
       }
     }      
 }  
